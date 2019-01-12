@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GradeRegZTP.Models;
+using GradeRegZTP.ViewModel;
+using Microsoft.AspNet.Identity;
 
 namespace GradeRegZTP.Controllers
 {
@@ -17,6 +19,7 @@ namespace GradeRegZTP.Controllers
         // GET: Grades
         public ActionResult Index()
         {
+            var userID = User.Identity.GetUserId();
             if (User.IsInRole("Admin"))
             {
                 var grades = db.Grades.Include(g => g.Subject);
@@ -24,16 +27,33 @@ namespace GradeRegZTP.Controllers
             }
             else if (User.IsInRole("Teacher"))
             {
-                var grades = db.Grades.Include(g => g.Subject);
-                return View(grades.ToList());
+                var subjectStudentsGroup = db.SubjectStudentGroupTeacher.Where(x => x.TeacherID == userID).Select(x => new TeacherGradesViewModel()
+                {
+                    Subject = x.Subject,
+                    StudentsGroup = x.StudentsGroup
+                }).ToList();
+
+
+
+             
+                return View("~\\Views\\Grades\\IndexTeacher.cshtml",subjectStudentsGroup);
             }
-            else if (User.IsInRole("Admin"))
+            else if (User.IsInRole("Student"))
             {
-                var grades = db.Grades.Include(g => g.Subject);
-                return View(grades.ToList());
+                var myStudentGrupuID = db.MyUsers.Where(x => x.Owner == userID).Select(x => x.StudentsGroupId).FirstOrDefault();
+                var grades = db.Grades.Where(x => x.Owner.Equals(userID)).ToList();
+
+                var subjects = db.SubjectStudentGroupTeacher.Where(x => x.StudentsGroupId == myStudentGrupuID).Select(x => x.Subject).ToList();
+
+
+                StudentGradesViewModel studentViewModel = new StudentGradesViewModel()
+                {
+                    Grades = grades,
+                    Subjects = subjects
+                };
+
+                return View("~\\Views\\Grades\\IndexStudent.cshtml", studentViewModel);
             }
-
-
             return View();
         }
 

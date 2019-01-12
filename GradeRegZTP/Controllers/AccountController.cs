@@ -141,8 +141,9 @@ namespace GradeRegZTP.Controllers
         public ActionResult Register()
         {
             ViewBag.Name = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+            var groupList = _context.StudentsGroups.Select(x => new { NameLevel = x.Level + x.Name, Id = x.Id }).ToList();
 
-            ViewBag.StudentsGroups = new SelectList(_context.StrudentsGroups.Select(x => new { NameLevel = x.Level + x.Name, Id = x.Id }).ToList(), "Id", "NameLevel");
+            ViewBag.StudentsGroups = new SelectList(_context.StudentsGroups.Select(x => new { NameLevel = x.Level + x.Name, Id = x.Id }).ToList(), "Id", "NameLevel");
 
             return View();
         }
@@ -163,28 +164,28 @@ namespace GradeRegZTP.Controllers
 
                 if (result.Succeeded)
                 {
-
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    _context.MyUsers.Add(new MyUser()
+                    UserManager.AddToRole(user.Id, model.UserRoles);
+                    var myUser = new MyUser()
                     {
                         Name = model.Name,
-                        Surname = model.Surname
-                    });
+                        Surname = model.Surname,
+                        Owner = user.Id
+                    }
+                    ;
+                    if (model.UserRoles == "Student")
+                        myUser.StudentsGroupId = model.ClassOfStudent;
+
+
+                    _context.MyUsers.Add(myUser);
                     _context.SaveChanges();
 
-                    UserManager.AddToRole(user.Id, model.UserRoles);
 
-                    // Aby uzyskać więcej informacji o sposobie włączania potwierdzania konta i resetowaniu hasła, odwiedź stronę https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Wyślij wiadomość e-mail z tym łączem
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Potwierdź konto", "Potwierdź konto, klikając <a href=\"" + callbackUrl + "\">tutaj</a>");
 
                     return RedirectToAction("Index", "Home");
                 }
-                ViewBag.Name = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin"))
-                                  .ToList(), "Name", "Name");
+                ViewBag.Name = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+                ViewBag.StudentsGroups = new SelectList(_context.StudentsGroups.Select(x => new { NameLevel = x.Level + x.Name, Id = x.Id }).ToList(), "Id", "NameLevel");
+
                 AddErrors(result);
             }
 

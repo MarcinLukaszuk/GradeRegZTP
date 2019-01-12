@@ -1,0 +1,30 @@
+﻿@model IEnumerable<GradeRegZTP.ViewModel.TeacherGradesViewModel>
+
+ 
+
+<h2>Grupy zajęciowe</h2>
+ 
+<table class="table">
+    <tr>
+        <th width="10%">
+            Przedmiot
+        </th>
+        <th>
+           Klasa
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subject.Name)
+            </td>
+            <td>
+                @item.StudentsGroup.Level@item.StudentsGroup.Name
+            </td>
+        </tr>
+    }
+
+</table>

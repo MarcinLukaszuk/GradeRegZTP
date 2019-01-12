@@ -28,7 +28,11 @@ namespace GradeRegZTP.Models
         public virtual DbSet<MyUser> MyUsers { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<Grade> Grades { get; set; }
-        public virtual DbSet<StrudentsGroup> StrudentsGroups { get; set; }
+        public virtual DbSet<StudentsGroup> StudentsGroups { get; set; }
+        public virtual DbSet<SubjectStudentGroupTeacher> SubjectStudentGroupTeacher { get; set; }
+
+        
+
 
         public static ApplicationDbContext Create()
         {

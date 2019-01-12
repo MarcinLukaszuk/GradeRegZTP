@@ -1,0 +1,33 @@
+﻿@model  GradeRegZTP.ViewModel.StudentGradesViewModel
+
+
+<h2>Oceny</h2>
+
+
+
+<table class="table">
+    <tr>
+        <th width="10%">
+            Przedmiot
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Grades.FirstOrDefault().Value)
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Subjects)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @foreach (var grade in Model.Grades.Where(x => x.SubjectId == item.Id))
+                {
+                    @Html.ActionLink(@Math.Round(grade.Value, 1).ToString() + " ", "Details", new { id = grade.Id })
+
+                }
+            </td>
+        </tr>
+    }
+</table>

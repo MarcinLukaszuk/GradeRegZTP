@@ -1,0 +1,55 @@
+﻿@model IEnumerable<GradeRegZTP.ViewModel.StudentGroupViewModel>
+
+@{
+    ViewBag.Title = "Details";
+}
+<style>
+
+    table {
+        counter-reset: rownumber;
+    }
+
+        table tr {
+            counter-increment: rownumber;
+        }
+
+            table tr td:first-child::before {
+                content: counter(rownumber);
+            }
+</style>
+<h2>Details</h2>
+
+<div>
+    <h4>StrudentsGroup</h4>
+
+    <table class="table">
+        <tr>
+            <th width="20%">
+                Uczeń
+            </th>
+            <th>
+                Oceny
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.MyUser.Name @item.MyUser.Surname
+                </td>
+                <td>
+                    @foreach (var grade in item.Grades)
+                    {
+                        @Math.Round(grade.Value, 1)<span> </span>
+                    }
+                </td>
+            </tr>
+
+        }
+
+    </table>
+</div>
+
+
+

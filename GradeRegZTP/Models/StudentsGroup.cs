@@ -6,7 +6,7 @@ using System.Web;
 
 namespace GradeRegZTP.Models
 {
-    public class StrudentsGroup
+    public class StudentsGroup
     {
         [Key]
         public int Id { get; set; }

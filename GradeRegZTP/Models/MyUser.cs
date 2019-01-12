@@ -14,7 +14,7 @@ namespace GradeRegZTP.Models
         public string Surname { get; set; }
         public DateTime? BirthDate { get; set; }
         public string PhoneNumber { get; set; }
-        public int? StrudentsGroupId { get; set; }
+        public int? StudentsGroupId { get; set; }
         public string Owner { get; set; }
     }
 }

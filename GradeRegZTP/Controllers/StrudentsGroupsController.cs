@@ -7,110 +7,127 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GradeRegZTP.Models;
+using GradeRegZTP.ViewModel;
 
 namespace GradeRegZTP.Controllers
 {
-    public class StrudentsGroupsController : Controller
+    public class StudentsGroupsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: StrudentsGroups
+        // GET: StudentsGroups
         public ActionResult Index()
         {
-            return View(db.StrudentsGroups.ToList());
+            return View(db.StudentsGroups.ToList());
         }
 
-        // GET: StrudentsGroups/Details/5
-        public ActionResult Details(int? id)
+
+        public ActionResult Details(int? studentGroupId, int? subjectId)
         {
-            if (id == null)
+            if (studentGroupId == null || studentGroupId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            StrudentsGroup strudentsGroup = db.StrudentsGroups.Find(id);
-            if (strudentsGroup == null)
+            if (User.IsInRole("Teacher"))
+            {
+                // StudentGroupViewModel vm = new StudentGroupViewModel();
+                var myUsers = db.MyUsers.Where(x => x.StudentsGroupId == studentGroupId).Select(x => new StudentGroupViewModel()
+                {
+                    MyUser = x
+                }).ToList();
+
+
+                foreach (var myUser in myUsers)
+                {
+                    myUser.Grades = db.Grades.Where(x => x.Owner == myUser.MyUser.Owner && x.SubjectId == subjectId).ToList();
+                }
+
+                return View("~\\Views\\StudentsGroups\\DetailsTeacher.cshtml", myUsers);
+            }
+
+            StudentsGroup StudentsGroup = db.StudentsGroups.Find(studentGroupId);
+            if (StudentsGroup == null)
             {
                 return HttpNotFound();
             }
-            return View(strudentsGroup);
+            return View(StudentsGroup);
         }
-
-        // GET: StrudentsGroups/Create
+        // GET: StudentsGroups/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: StrudentsGroups/Create
+        // POST: StudentsGroups/Create
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Level")] StrudentsGroup strudentsGroup)
+        public ActionResult Create([Bind(Include = "Id,Name,Level")] StudentsGroup StudentsGroup)
         {
             if (ModelState.IsValid)
             {
-                db.StrudentsGroups.Add(strudentsGroup);
+                db.StudentsGroups.Add(StudentsGroup);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(strudentsGroup);
+            return View(StudentsGroup);
         }
 
-        // GET: StrudentsGroups/Edit/5
+        // GET: StudentsGroups/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            StrudentsGroup strudentsGroup = db.StrudentsGroups.Find(id);
-            if (strudentsGroup == null)
+            StudentsGroup StudentsGroup = db.StudentsGroups.Find(id);
+            if (StudentsGroup == null)
             {
                 return HttpNotFound();
             }
-            return View(strudentsGroup);
+            return View(StudentsGroup);
         }
 
-        // POST: StrudentsGroups/Edit/5
+        // POST: StudentsGroups/Edit/5
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Level")] StrudentsGroup strudentsGroup)
+        public ActionResult Edit([Bind(Include = "Id,Name,Level")] StudentsGroup StudentsGroup)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(strudentsGroup).State = EntityState.Modified;
+                db.Entry(StudentsGroup).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(strudentsGroup);
+            return View(StudentsGroup);
         }
 
-        // GET: StrudentsGroups/Delete/5
+        // GET: StudentsGroups/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            StrudentsGroup strudentsGroup = db.StrudentsGroups.Find(id);
-            if (strudentsGroup == null)
+            StudentsGroup StudentsGroup = db.StudentsGroups.Find(id);
+            if (StudentsGroup == null)
             {
                 return HttpNotFound();
             }
-            return View(strudentsGroup);
+            return View(StudentsGroup);
         }
 
-        // POST: StrudentsGroups/Delete/5
+        // POST: StudentsGroups/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            StrudentsGroup strudentsGroup = db.StrudentsGroups.Find(id);
-            db.StrudentsGroups.Remove(strudentsGroup);
+            StudentsGroup StudentsGroup = db.StudentsGroups.Find(id);
+            db.StudentsGroups.Remove(StudentsGroup);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

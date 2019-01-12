@@ -205,16 +205,40 @@
     <Compile Include="Migrations\201901102156134_init8.Designer.cs">
       <DependentUpon>201901102156134_init8.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901121906165_tmp.cs" />
+    <Compile Include="Migrations\201901121906165_tmp.Designer.cs">
+      <DependentUpon>201901121906165_tmp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901121948159_tmp1.cs" />
+    <Compile Include="Migrations\201901121948159_tmp1.Designer.cs">
+      <DependentUpon>201901121948159_tmp1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901121954533_tmp2.cs" />
+    <Compile Include="Migrations\201901121954533_tmp2.Designer.cs">
+      <DependentUpon>201901121954533_tmp2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901122142333_tmp3.cs" />
+    <Compile Include="Migrations\201901122142333_tmp3.Designer.cs">
+      <DependentUpon>201901122142333_tmp3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901122144167_tmp4.cs" />
+    <Compile Include="Migrations\201901122144167_tmp4.Designer.cs">
+      <DependentUpon>201901122144167_tmp4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\StrudentsGroup.cs" />
+    <Compile Include="Models\StudentsGroup.cs" />
     <Compile Include="Models\Grade.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MyUser.cs" />
+    <Compile Include="Models\SubjectStudentGroupTeacher.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\StudentGradesViewModel.cs" />
+    <Compile Include="ViewModel\StudentsGroupViewModel.cs" />
+    <Compile Include="ViewModel\TeacherGradesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -277,11 +301,14 @@
     <Content Include="Views\Grades\Details.cshtml" />
     <Content Include="Views\Grades\Edit.cshtml" />
     <Content Include="Views\Grades\Index.cshtml" />
-    <Content Include="Views\StrudentsGroups\Create.cshtml" />
-    <Content Include="Views\StrudentsGroups\Delete.cshtml" />
-    <Content Include="Views\StrudentsGroups\Details.cshtml" />
-    <Content Include="Views\StrudentsGroups\Edit.cshtml" />
-    <Content Include="Views\StrudentsGroups\Index.cshtml" />
+    <Content Include="Views\StudentsGroups\Create.cshtml" />
+    <Content Include="Views\StudentsGroups\Delete.cshtml" />
+    <Content Include="Views\StudentsGroups\Details.cshtml" />
+    <Content Include="Views\StudentsGroups\Edit.cshtml" />
+    <Content Include="Views\StudentsGroups\Index.cshtml" />
+    <Content Include="Views\Grades\IndexStudent.cshtml" />
+    <Content Include="Views\Grades\IndexTeacher.cshtml" />
+    <Content Include="Views\StudentsGroups\DetailsTeacher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -317,6 +344,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901102156134_init8.resx">
       <DependentUpon>201901102156134_init8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901121906165_tmp.resx">
+      <DependentUpon>201901121906165_tmp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901121948159_tmp1.resx">
+      <DependentUpon>201901121948159_tmp1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901121954533_tmp2.resx">
+      <DependentUpon>201901121954533_tmp2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901122142333_tmp3.resx">
+      <DependentUpon>201901122142333_tmp3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901122144167_tmp4.resx">
+      <DependentUpon>201901122144167_tmp4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

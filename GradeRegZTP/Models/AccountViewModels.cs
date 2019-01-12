@@ -92,9 +92,8 @@ namespace GradeRegZTP.Models
         [Required]
         [Display(Name = "Nazwisko")]
         public string Surname { get; set; }
-
-
-
+        
+        
         [DataType(DataType.Password)]
         [Display(Name = "Potwierdź hasło")]
         [Compare("Password", ErrorMessage = "Hasło i jego potwierdzenie są niezgodne.")]
