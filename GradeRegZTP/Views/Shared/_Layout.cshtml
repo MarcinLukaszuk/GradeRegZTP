@@ -28,6 +28,8 @@
 
                     @if (User.IsInRole("Admin"))
                     {
+                        <li>@Html.ActionLink("Przedmioty", "Index", "Subjects")</li>
+
                         <li>@Html.ActionLink("Dodaj Użytkownika", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
                     }
 

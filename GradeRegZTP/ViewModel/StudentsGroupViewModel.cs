@@ -14,5 +14,10 @@ namespace GradeRegZTP.ViewModel
         }
         public MyUser MyUser { get; set; }
         public List<Grade> Grades { get; set; }
+        public string StudentGroupName { get; set; }
+        public string SubjectName { get; set; }
+
+        public int StudentGroupId { get; set; }
+        public int SubjectId { get; set; }
     }
 }

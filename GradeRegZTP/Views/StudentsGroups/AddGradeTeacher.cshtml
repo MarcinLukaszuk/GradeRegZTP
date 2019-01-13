@@ -1,0 +1,80 @@
+﻿@model  GradeRegZTP.ViewModel.StudentsGroupAddGradeViewModelList
+@using (@Html.BeginForm("AddGrade", "StudentsGroups", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    ViewBag.Title = "Details";
+
+    <style>
+
+        table {
+            counter-reset: rownumber;
+        }
+
+            table tr td:first-child {
+                counter-increment: rownumber;
+            }
+
+                table tr td:first-child::before {
+                    content: counter(rownumber);
+                }
+    </style>
+
+    @Html.AntiForgeryToken()
+    @Html.EditorForModel()
+
+    <h2>@Model.StudentsGroupAddGradeViewModels.FirstOrDefault().SubjectName </h2>
+    <div>
+        <h4>@Model.StudentsGroupAddGradeViewModels.FirstOrDefault().StudentGroupName</h4>
+
+        <table class="table">
+            <tr>
+                <th width="20%">
+                    Uczeń
+                </th>
+                <th width="10%">
+                    Ocena
+                </th>
+                <th width="10%">
+                    Waga
+                </th>
+                <th width="60%">
+                    Notatka
+                </th>
+            </tr>
+
+
+
+
+
+            @foreach (var item in Model.StudentsGroupAddGradeViewModels)
+            {
+                <tr>
+                    <td>
+                        @item.MyUser.Name @item.MyUser.Surname
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => item.Grade, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => item.Weight, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => item.Note, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                </tr>
+
+            }
+
+        </table>
+    </div>
+
+    <div class="form-group">
+        <div class=" col-md-11">
+        </div>
+        <div class=" col-md-1">
+            <input type="submit" value="Add Grades" class="btn btn-primary" />
+        </div>
+
+        <input type="submit" value="Remove Answer" formaction=@Url.Action("AddGrade","StudentsGroups",new {model =Model}) formmethod="post" class="btn btn-danger" />
+
+    </div>
+}

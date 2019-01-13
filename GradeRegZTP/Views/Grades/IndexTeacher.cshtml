@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<GradeRegZTP.ViewModel.TeacherGradesViewModel>
 
- 
+
 
 <h2>Grupy zajęciowe</h2>
- 
+
 <table class="table">
     <tr>
         <th width="10%">
             Przedmiot
         </th>
         <th>
-           Klasa
+            Klasa
         </th>
 
     </tr>
@@ -19,7 +19,8 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Subject.Name)
+                @Html.ActionLink(item.Subject.Name, "Details", "StudentsGroups", routeValues: new { studentGroupId = item.StudentsGroup.Id, subjectId = item.Subject.Id }, htmlAttributes: null)
+
             </td>
             <td>
                 @item.StudentsGroup.Level@item.StudentsGroup.Name

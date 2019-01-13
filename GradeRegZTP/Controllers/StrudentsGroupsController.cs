@@ -21,7 +21,38 @@ namespace GradeRegZTP.Controllers
             return View(db.StudentsGroups.ToList());
         }
 
+        public ActionResult AddGrade(int? studentGroupId, int? subjectId)
+        {
+            if (User.IsInRole("Teacher"))
+            {
+                var studentsGroup = db.StudentsGroups.FirstOrDefault(x => x.Id == studentGroupId);
+                var subjectName = db.Subjects.FirstOrDefault(x => x.Id == subjectId).Name;
 
+                var myUsers = db.MyUsers.Where(x => x.StudentsGroupId == studentGroupId).Select(x => new StudentsGroupAddGradeViewModel()
+                {
+                    MyUser = x,
+                    SubjectName = subjectName,
+                    StudentGroupName = studentsGroup.Level + studentsGroup.Name,
+                    SubjectId = (int)subjectId,
+                    StudentsGroupId = (int)studentGroupId
+                }).ToList();
+
+                StudentsGroupAddGradeViewModelList model = new StudentsGroupAddGradeViewModelList();
+                model.StudentsGroupAddGradeViewModels = myUsers;
+
+
+                return View("~\\Views\\StudentsGroups\\AddGradeTeacher.cshtml", model);
+            }
+            return HttpNotFound();
+        }
+        [HttpPost]
+
+        [ValidateAntiForgeryToken]
+        public ActionResult AddGrade([Bind(Include = "StudentsGroupAddGradeViewModels,Note,Grade,Weight")]  StudentsGroupAddGradeViewModelList model)
+        {
+
+            return HttpNotFound();
+        }
         public ActionResult Details(int? studentGroupId, int? subjectId)
         {
             if (studentGroupId == null || studentGroupId == null)
@@ -30,10 +61,16 @@ namespace GradeRegZTP.Controllers
             }
             if (User.IsInRole("Teacher"))
             {
-                // StudentGroupViewModel vm = new StudentGroupViewModel();
+                var studentsGroup = db.StudentsGroups.FirstOrDefault(x => x.Id == studentGroupId);
+                var subjectName = db.Subjects.FirstOrDefault(x => x.Id == subjectId).Name;
+
                 var myUsers = db.MyUsers.Where(x => x.StudentsGroupId == studentGroupId).Select(x => new StudentGroupViewModel()
                 {
-                    MyUser = x
+                    MyUser = x,
+                    SubjectName = subjectName,
+                    StudentGroupName = studentsGroup.Level + studentsGroup.Name,
+                    StudentGroupId = (int)studentGroupId,
+                    SubjectId = (int)subjectId
                 }).ToList();
 
 

@@ -9,7 +9,7 @@
         counter-reset: rownumber;
     }
 
-        table tr {
+        table tr td:first-child {
             counter-increment: rownumber;
         }
 
@@ -17,39 +17,49 @@
                 content: counter(rownumber);
             }
 </style>
-<h2>Details</h2>
+<h2>@Model.FirstOrDefault().SubjectName </h2>
+<div class="form-horizontal">
+    
+        <h4>@Model.FirstOrDefault().StudentGroupName</h4>
+        <div class="form-group">
+        
+            <div class="  col-md-1">
+                @Html.ActionLink("Dodaj Oceny", "AddGrade", "StudentsGroups", routeValues: new { studentGroupId = Model.FirstOrDefault().StudentGroupId, subjectId = Model.FirstOrDefault().SubjectId }, htmlAttributes: new { @class = "btn btn-primary" })
 
-<div>
-    <h4>StrudentsGroup</h4>
+            </div>
+        </div>
 
-    <table class="table">
-        <tr>
-            <th width="20%">
-                Uczeń
-            </th>
-            <th>
-                Oceny
-            </th>
-        </tr>
 
-        @foreach (var item in Model)
-        {
+        <table class="table">
             <tr>
-                <td>
-                    @item.MyUser.Name @item.MyUser.Surname
-                </td>
-                <td>
-                    @foreach (var grade in item.Grades)
-                    {
-                        @Math.Round(grade.Value, 1)<span> </span>
-                    }
-                </td>
+                <th width="20%">
+                    Uczeń
+                </th>
+                <th>
+                    Oceny
+                </th>
             </tr>
 
-        }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.MyUser.Name @item.MyUser.Surname
+                    </td>
+                    <td>
+                        @foreach (var grade in item.Grades)
+                        {
 
-    </table>
-</div>
+                            @Html.ActionLink(Math.Round(grade.Value, 1).ToString() + " ", "Details", "Grades", routeValues: new { id = grade.Id }, htmlAttributes: null)
+
+                        }
+                    </td>
+                </tr>
+            }
+
+
+        </table>
+    </div>
 
 
 

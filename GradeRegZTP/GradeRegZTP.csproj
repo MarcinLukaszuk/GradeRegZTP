@@ -178,6 +178,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StrudentsGroupsController.cs" />
+    <Compile Include="Controllers\SubjectsController.cs" />
+    <Compile Include="Controllers\SubjectStudentGroupTeachersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -237,6 +239,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\StudentGradesViewModel.cs" />
+    <Compile Include="ViewModel\StudentsGroupAddGradeViewModel.cs" />
     <Compile Include="ViewModel\StudentsGroupViewModel.cs" />
     <Compile Include="ViewModel\TeacherGradesViewModel.cs" />
   </ItemGroup>
@@ -309,6 +312,17 @@
     <Content Include="Views\Grades\IndexStudent.cshtml" />
     <Content Include="Views\Grades\IndexTeacher.cshtml" />
     <Content Include="Views\StudentsGroups\DetailsTeacher.cshtml" />
+    <Content Include="Views\StudentsGroups\AddGradeTeacher.cshtml" />
+    <Content Include="Views\Subjects\Create.cshtml" />
+    <Content Include="Views\Subjects\Delete.cshtml" />
+    <Content Include="Views\Subjects\Details.cshtml" />
+    <Content Include="Views\Subjects\Edit.cshtml" />
+    <Content Include="Views\Subjects\Index.cshtml" />
+    <Content Include="Views\SubjectStudentGroupTeachers\Create.cshtml" />
+    <Content Include="Views\SubjectStudentGroupTeachers\Delete.cshtml" />
+    <Content Include="Views\SubjectStudentGroupTeachers\Details.cshtml" />
+    <Content Include="Views\SubjectStudentGroupTeachers\Edit.cshtml" />
+    <Content Include="Views\SubjectStudentGroupTeachers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
