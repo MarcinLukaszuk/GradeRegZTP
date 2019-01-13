@@ -176,6 +176,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GradesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HourOfDays1Controller.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StrudentsGroupsController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
@@ -227,8 +228,30 @@
     <Compile Include="Migrations\201901122144167_tmp4.Designer.cs">
       <DependentUpon>201901122144167_tmp4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901131757540_tmp44.cs" />
+    <Compile Include="Migrations\201901131757540_tmp44.Designer.cs">
+      <DependentUpon>201901131757540_tmp44.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901131819397_tmp444.cs" />
+    <Compile Include="Migrations\201901131819397_tmp444.Designer.cs">
+      <DependentUpon>201901131819397_tmp444.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901131822543_tmp4441.cs" />
+    <Compile Include="Migrations\201901131822543_tmp4441.Designer.cs">
+      <DependentUpon>201901131822543_tmp4441.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901131912025_tmp44411.cs" />
+    <Compile Include="Migrations\201901131912025_tmp44411.Designer.cs">
+      <DependentUpon>201901131912025_tmp44411.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901131913076_tmp44412.cs" />
+    <Compile Include="Migrations\201901131913076_tmp44412.Designer.cs">
+      <DependentUpon>201901131913076_tmp44412.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DayOfWeek.cs" />
+    <Compile Include="Models\Hour.cs" />
     <Compile Include="Models\StudentsGroup.cs" />
     <Compile Include="Models\Grade.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -236,6 +259,7 @@
     <Compile Include="Models\MyUser.cs" />
     <Compile Include="Models\SubjectStudentGroupTeacher.cs" />
     <Compile Include="Models\Subject.cs" />
+    <Compile Include="Models\HourOfDay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\StudentGradesViewModel.cs" />
@@ -323,6 +347,12 @@
     <Content Include="Views\SubjectStudentGroupTeachers\Details.cshtml" />
     <Content Include="Views\SubjectStudentGroupTeachers\Edit.cshtml" />
     <Content Include="Views\SubjectStudentGroupTeachers\Index.cshtml" />
+    <Content Include="Views\HourOfDays\Create.cshtml" />
+    <Content Include="Views\HourOfDays\Delete.cshtml" />
+    <Content Include="Views\HourOfDays\Details.cshtml" />
+    <Content Include="Views\HourOfDays\Edit.cshtml" />
+    <Content Include="Views\HourOfDays\Index.cshtml" />
+    <Content Include="Views\HourOfDays\IndexStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -373,6 +403,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901122144167_tmp4.resx">
       <DependentUpon>201901122144167_tmp4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901131757540_tmp44.resx">
+      <DependentUpon>201901131757540_tmp44.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901131819397_tmp444.resx">
+      <DependentUpon>201901131819397_tmp444.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901131822543_tmp4441.resx">
+      <DependentUpon>201901131822543_tmp4441.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901131912025_tmp44411.resx">
+      <DependentUpon>201901131912025_tmp44411.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901131913076_tmp44412.resx">
+      <DependentUpon>201901131913076_tmp44412.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

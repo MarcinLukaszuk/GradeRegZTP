@@ -30,8 +30,11 @@ namespace GradeRegZTP.Models
         public virtual DbSet<Grade> Grades { get; set; }
         public virtual DbSet<StudentsGroup> StudentsGroups { get; set; }
         public virtual DbSet<SubjectStudentGroupTeacher> SubjectStudentGroupTeacher { get; set; }
-
+        public virtual DbSet<HourOfDay> HourOfDays { get; set; }
+        public virtual DbSet<DayOfWeek> DayOfWeek { get; set; }
+        public virtual DbSet<Hour> Hours { get; set; }
         
+
 
 
         public static ApplicationDbContext Create()

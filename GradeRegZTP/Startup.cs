@@ -10,7 +10,7 @@ namespace GradeRegZTP
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)
-        {  
+        {
             ConfigureAuth(app);
             createRolesandUsers();
         }
@@ -25,15 +25,15 @@ namespace GradeRegZTP
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
                 role.Name = "Admin";
-                roleManager.Create(role); 
+                roleManager.Create(role);
             }
- 
+
             if (!roleManager.RoleExists("Teacher"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
                 role.Name = "Teacher";
                 roleManager.Create(role);
-            } 
+            }
 
             if (!roleManager.RoleExists("Student"))
             {
@@ -48,6 +48,10 @@ namespace GradeRegZTP
                 role.Name = "Parent";
                 roleManager.Create(role);
             }
+
+
+
+
         }
     }
 }
