@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace GradeRegZTP.Controllers
 {
+    [Authorize]
     public class HourOfDaysController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

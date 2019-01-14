@@ -178,6 +178,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HourOfDays1Controller.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\StrudentsGroupsController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
     <Compile Include="Controllers\SubjectStudentGroupTeachersController.cs" />
@@ -248,10 +249,15 @@
     <Compile Include="Migrations\201901131913076_tmp44412.Designer.cs">
       <DependentUpon>201901131913076_tmp44412.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901142044512_init6666.cs" />
+    <Compile Include="Migrations\201901142044512_init6666.Designer.cs">
+      <DependentUpon>201901142044512_init6666.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DayOfWeek.cs" />
     <Compile Include="Models\Hour.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\StudentsGroup.cs" />
     <Compile Include="Models\Grade.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -262,6 +268,7 @@
     <Compile Include="Models\HourOfDay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\MessagesViewModel.cs" />
     <Compile Include="ViewModel\StudentGradesViewModel.cs" />
     <Compile Include="ViewModel\StudentsGroupAddGradeViewModel.cs" />
     <Compile Include="ViewModel\StudentsGroupViewModel.cs" />
@@ -354,6 +361,11 @@
     <Content Include="Views\HourOfDays\Index.cshtml" />
     <Content Include="Views\HourOfDays\IndexStudent.cshtml" />
     <Content Include="Views\HourOfDays\IndexTeacher.cshtml" />
+    <Content Include="Views\Messages\Create.cshtml" />
+    <Content Include="Views\Messages\Delete.cshtml" />
+    <Content Include="Views\Messages\Details.cshtml" />
+    <Content Include="Views\Messages\Edit.cshtml" />
+    <Content Include="Views\Messages\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -419,6 +431,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901131913076_tmp44412.resx">
       <DependentUpon>201901131913076_tmp44412.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901142044512_init6666.resx">
+      <DependentUpon>201901142044512_init6666.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

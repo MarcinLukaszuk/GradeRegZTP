@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace GradeRegZTP.Controllers
 {
+    [Authorize]
     public class GradesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

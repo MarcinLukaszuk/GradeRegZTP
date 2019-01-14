@@ -1,0 +1,105 @@
+﻿@model GradeRegZTP.ViewModel.MessagesViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Wiadomości</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#outbox">Skrzynka nadawcza</a></li>
+    <li><a data-toggle="tab" href="#inbox">Skrzynka odbiorcza</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="outbox" class="tab-pane fade in active">
+        <h3>Wysłane</h3>
+        <div>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SentMessages.FirstOrDefault().Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SentMessages.FirstOrDefault().MessageText)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SentMessages.FirstOrDefault().Time)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SentMessages.FirstOrDefault().RecieverID)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.SentMessages)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MessageText)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RecieverID)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Details", "Details", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <div id="inbox" class="tab-pane fade">
+        <h3>Odebrane</h3>
+        <div>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RecievedMessages.FirstOrDefault().Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RecievedMessages.FirstOrDefault().MessageText)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RecievedMessages.FirstOrDefault().Time)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RecievedMessages.FirstOrDefault().SenderID)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.RecievedMessages)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MessageText)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SenderID)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Details", "Details", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+</div>

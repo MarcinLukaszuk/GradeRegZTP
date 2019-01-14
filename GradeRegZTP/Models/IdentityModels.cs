@@ -33,10 +33,8 @@ namespace GradeRegZTP.Models
         public virtual DbSet<HourOfDay> HourOfDays { get; set; }
         public virtual DbSet<DayOfWeek> DayOfWeek { get; set; }
         public virtual DbSet<Hour> Hours { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
         
-
-
-
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

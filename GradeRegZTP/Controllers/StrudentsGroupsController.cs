@@ -11,6 +11,7 @@ using GradeRegZTP.ViewModel;
 
 namespace GradeRegZTP.Controllers
 {
+    [Authorize]
     public class StudentsGroupsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
