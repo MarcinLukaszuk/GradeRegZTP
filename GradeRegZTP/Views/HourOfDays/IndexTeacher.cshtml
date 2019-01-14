@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
+
 <h2>Index</h2>
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -46,7 +47,7 @@
 
                 var dzienTygodnia = i;
                 var zajecie = Model.Where(x => x.Hour.HourString.Equals(godzina) && x.DayOfWeekId == dzienTygodnia).FirstOrDefault();
-                <td width="14%"class="info">
+                <td width="14%" class="info">
                     @if (zajecie != null)
                     {
                         <p> @zajecie.Subject.Name</p>

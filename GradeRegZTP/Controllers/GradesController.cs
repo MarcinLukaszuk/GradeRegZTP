@@ -31,7 +31,7 @@ namespace GradeRegZTP.Controllers
                 {
                     Subject = x.Subject,
                     StudentsGroup = x.StudentsGroup
-                }).ToList();
+                }).Distinct().ToList();
 
 
 

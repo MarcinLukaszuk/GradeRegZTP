@@ -30,6 +30,7 @@ namespace GradeRegZTP.Controllers
 
                 var myUsers = db.MyUsers.Where(x => x.StudentsGroupId == studentGroupId).Select(x => new StudentsGroupAddGradeViewModel()
                 {
+                    MyUserId = x.Owner,
                     MyUser = x,
                     SubjectName = subjectName,
                     StudentGroupName = studentsGroup.Level + studentsGroup.Name,
@@ -48,10 +49,31 @@ namespace GradeRegZTP.Controllers
         [HttpPost]
 
         [ValidateAntiForgeryToken]
-        public ActionResult AddGrade([Bind(Include = "StudentsGroupAddGradeViewModels,Note,Grade,Weight")]  StudentsGroupAddGradeViewModelList model)
+        public ActionResult AddGrade([Bind(Include = "StudentsGroupAddGradeViewModels")]  StudentsGroupAddGradeViewModelList model)
         {
+            foreach (var studentsGroupAddGradeViewModels in model.StudentsGroupAddGradeViewModels)
+            {
+                if (studentsGroupAddGradeViewModels.Note != null)
+                {
+                    var grade = new Grade()
+                    {
+                        Value = studentsGroupAddGradeViewModels.Grade.Value,
+                        Owner = studentsGroupAddGradeViewModels.MyUserId,
+                        Note = studentsGroupAddGradeViewModels.Note,
+                        Date = DateTime.Now,
+                        SubjectId = studentsGroupAddGradeViewModels.SubjectId,
+                        Weight = studentsGroupAddGradeViewModels.Weight.Value
+                    };
+                    db.Grades.Add(grade);
+                }
+            }
+            db.SaveChanges();
+            if (!model.StudentsGroupAddGradeViewModels.Any())
+            {
+                return View("~\\Views\\Grades\\index.cshtml");
+            }
 
-            return HttpNotFound();
+            return RedirectToAction("Index", "Grades", new { id = 1 });
         }
         public ActionResult Details(int? studentGroupId, int? subjectId)
         {

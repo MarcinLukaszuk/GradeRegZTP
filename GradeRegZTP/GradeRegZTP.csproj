@@ -353,6 +353,7 @@
     <Content Include="Views\HourOfDays\Edit.cshtml" />
     <Content Include="Views\HourOfDays\Index.cshtml" />
     <Content Include="Views\HourOfDays\IndexStudent.cshtml" />
+    <Content Include="Views\HourOfDays\IndexTeacher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

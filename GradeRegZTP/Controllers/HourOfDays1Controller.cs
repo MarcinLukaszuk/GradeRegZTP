@@ -26,8 +26,16 @@ namespace GradeRegZTP.Controllers
             }
             else if (User.IsInRole("Teacher"))
             {
-                var hourOfDays = db.HourOfDays.Include(h => h.DayOfWeek).Include(h => h.Hour).Include(h => h.StudentsGroup).Include(h => h.Subject);
-                return View("~\\Views\\StudentsGroups\\AddGradeTeacher.cshtml", hourOfDays);
+                var hourOfDays = db.SubjectStudentGroupTeacher
+                    .Join(db.HourOfDays,
+                    SSGT => new { StudentsGroupId = SSGT.StudentsGroupId, SubjectId = SSGT.SubjectId },
+                    HoD => new { StudentsGroupId = HoD.StudentsGroupId, SubjectId = HoD.SubjectId },
+                    (SSGT, HoD) => new { SSGT, HoD })
+                    .Where(x => x.SSGT.TeacherID == userID)
+                    .Select(x => x.HoD)
+                    .Distinct()
+                    .ToList();
+                return View("~\\Views\\HourOfDays\\IndexTeacher.cshtml", hourOfDays);
 
             }
             else

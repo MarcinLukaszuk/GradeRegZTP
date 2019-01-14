@@ -13,13 +13,14 @@ namespace GradeRegZTP.ViewModel
         {
             StudentsGroupAddGradeViewModels = new List<StudentsGroupAddGradeViewModel>();
         }
-        public List<StudentsGroupAddGradeViewModel> StudentsGroupAddGradeViewModels { get; set; }
+        public virtual List<StudentsGroupAddGradeViewModel> StudentsGroupAddGradeViewModels { get; set; }
     }
     public class StudentsGroupAddGradeViewModel
     {
         public StudentsGroupAddGradeViewModel()
         {
         }
+        public string MyUserId { get; set; }
         public MyUser MyUser { get; set; }
         public decimal? Grade { get; set; }
         public string Note { get; set; }
