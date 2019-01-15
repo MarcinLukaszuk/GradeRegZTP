@@ -51,14 +51,14 @@ namespace GradeRegZTP.Controllers
             else if (User.IsInRole("Student"))
             {
                 var myStudentGrupuID = db.MyUsers.Where(x => x.Owner == userID).Select(x => x.StudentsGroupId).FirstOrDefault();
-                var grades = db.Grades.Where(x => x.Owner.Equals(userID)).ToList();
+                var grades = gradeService.GradesForStudent(userID);
 
                 var subjects = db.SubjectStudentGroupTeacher.Where(x => x.StudentsGroupId == myStudentGrupuID).Select(x => x.Subject).ToList();
 
 
                 StudentGradesViewModel studentViewModel = new StudentGradesViewModel()
                 {
-                    Grades = grades,
+                    Grades = (IEnumerable<Grade>)grades,
                     Subjects = subjects
                 };
 

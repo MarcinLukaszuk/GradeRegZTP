@@ -7,7 +7,7 @@ using System.Web;
 
 namespace GradeRegZTP.Models
 {
-    public class Grade
+    public partial class Grade
     {
         [Key]
         public int Id { get; set; }
@@ -21,5 +21,10 @@ namespace GradeRegZTP.Models
 
         [ForeignKey("SubjectId")]
         public virtual Subject Subject { get; set; }
+    }
+
+    public partial class Grade
+    {
+        
     }
 }
