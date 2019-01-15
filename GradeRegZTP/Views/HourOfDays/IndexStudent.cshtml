@@ -1,12 +1,6 @@
 ﻿@model IEnumerable<GradeRegZTP.Models.HourOfDay>
 
-@{
-    ViewBag.Title = "Index";
-}
-<h2>Index</h2>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+ 
 <style>
     .info {
         border: 1px #5b5757 solid;
@@ -46,7 +40,7 @@
 
                 var dzienTygodnia = i;
                 var zajecie = Model.Where(x => x.Hour.HourString.Equals(godzina) && x.DayOfWeekId == dzienTygodnia).FirstOrDefault();
-                <td width="14%"class="info">
+                <td width="14%" class="info">
                     @if (zajecie != null)
                     {
                         <p> @zajecie.Subject.Name</p>
@@ -57,5 +51,5 @@
         </tr>
     }
 
-
 </table>
+@Html.ActionLink("Pobierz PDF", "PDFGenerator", "HourOfDays", new { @class = "btn btn-danger" })

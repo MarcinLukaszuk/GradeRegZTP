@@ -1,6 +1,12 @@
-﻿using System;
+﻿using Autofac;
+using Autofac.Integration.Mvc;
+using GradeRegZTP.Controllers;
+using GradeRegZTP.Models;
+using GradeRegZTP.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -16,6 +22,27 @@ namespace GradeRegZTP
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AutofacConfig.RegisterAutofacConfig();
+
+        }
+    }
+    public class AutofacConfig
+    {
+        public static void RegisterAutofacConfig()
+        {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterModelBinders(Assembly.GetExecutingAssembly());
+            builder.RegisterModelBinderProvider();
+            builder.RegisterModule<AutofacWebTypesModule>();
+            builder.RegisterSource(new ViewRegistrationSource());
+            builder.RegisterFilterProvider();
+
+           builder.RegisterType<ApplicationDbContext>().As<IDbContext>();
+           builder.RegisterType<GradeService>().As<IGradeService>();
+            var container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
     }
 }

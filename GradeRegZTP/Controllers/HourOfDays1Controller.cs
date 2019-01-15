@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using GradeRegZTP.Builder;
 using GradeRegZTP.Models;
 using Microsoft.AspNet.Identity;
 
@@ -15,6 +17,7 @@ namespace GradeRegZTP.Controllers
     public class HourOfDaysController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private PDFTimetableBuilder PDFBuilder = new PDFTimetableBuilder();
 
         // GET: HourOfDays1
         public ActionResult Index()
@@ -164,6 +167,62 @@ namespace GradeRegZTP.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult PDFGenerator()
+        {
+            var userID = User.Identity.GetUserId();
+            List<HourOfDay> lessons;
+            if (User.IsInRole("Teacher"))
+            {
+                lessons = db.SubjectStudentGroupTeacher
+                    .Join(db.HourOfDays,
+                    SSGT => new { StudentsGroupId = SSGT.StudentsGroupId, SubjectId = SSGT.SubjectId },
+                    HoD => new { StudentsGroupId = HoD.StudentsGroupId, SubjectId = HoD.SubjectId },
+                    (SSGT, HoD) => new { SSGT, HoD })
+                    .Where(x => x.SSGT.TeacherID == userID)
+                    .Select(x => x.HoD)
+                    .Distinct()
+                    .ToList();
+            }
+            else
+            {
+                lessons = db.HourOfDays.Include(h => h.DayOfWeek)
+                    .Include(h => h.Hour).Include(h => h.StudentsGroup)
+                    .Include(h => h.Subject)
+                    .Where(x => x.StudentsGroupId == db.MyUsers.FirstOrDefault(xd => xd.Owner == userID).StudentsGroupId).ToList();
+            }
+            CreateTimetable(PDFBuilder, lessons);
+            
+            return PDFBuilder.GeneratePDF(); 
+        }
+
+        private void CreateTimetable(ITimetableBuilder builder, List<HourOfDay> lessons)
+        {
+            builder.AddHeader();
+            builder.AddColumn("Godzina");
+            builder.AddColumn("Poniedziałek");
+            builder.AddColumn("Wtorek");
+            builder.AddColumn("Środa");
+            builder.AddColumn("Czwartek");
+            builder.AddColumn("Piątek");
+            builder.AddColumn("Sobota");
+            builder.AddColumn("Niedziela");
+
+            for (int j = 8; j <= 18; j++)
+            {
+                var godzina = j + ":15";
+                builder.AddRow();
+                builder.AddColumn(godzina);
+                for (int i = 1; i < 8; i++)
+                {
+                    var dzienTygodnia = i;
+                    var zajecie = lessons.Where(x => x.Hour.HourString.Equals(godzina) && x.DayOfWeekId == dzienTygodnia).FirstOrDefault();
+                    if (zajecie != null)
+                        builder.AddColumn(zajecie.Subject.Name);
+                    else
+                        builder.AddColumn("");
+                }
+            }
         }
     }
 }

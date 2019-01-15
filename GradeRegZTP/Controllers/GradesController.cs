@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GradeRegZTP.Models;
+using GradeRegZTP.Services;
 using GradeRegZTP.ViewModel;
 using Microsoft.AspNet.Identity;
 
@@ -15,7 +16,15 @@ namespace GradeRegZTP.Controllers
     [Authorize]
     public class GradesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private IDbContext db;
+        private IGradeService gradeService;
+
+        public GradesController(IDbContext _db)
+        {
+            db = _db;
+            gradeService = new GradeProxy(new GradeService(_db));
+        }
+
 
         // GET: Grades
         public ActionResult Index()
@@ -23,7 +32,7 @@ namespace GradeRegZTP.Controllers
             var userID = User.Identity.GetUserId();
             if (User.IsInRole("Admin"))
             {
-                var grades = db.Grades.Include(g => g.Subject);
+                var grades = gradeService.GetAllGrades();
                 return View(grades.ToList());
             }
             else if (User.IsInRole("Teacher"))
@@ -36,8 +45,8 @@ namespace GradeRegZTP.Controllers
 
 
 
-             
-                return View("~\\Views\\Grades\\IndexTeacher.cshtml",subjectStudentsGroup);
+
+                return View("~\\Views\\Grades\\IndexTeacher.cshtml", subjectStudentsGroup);
             }
             else if (User.IsInRole("Student"))
             {
@@ -91,8 +100,7 @@ namespace GradeRegZTP.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Grades.Add(grade);
-                db.SaveChanges();
+                gradeService.AddGrade(grade);
                 return RedirectToAction("Index");
             }
 
@@ -107,7 +115,7 @@ namespace GradeRegZTP.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Grade grade = db.Grades.Find(id);
+            Grade grade = gradeService.Find(id);
             if (grade == null)
             {
                 return HttpNotFound();
@@ -125,8 +133,7 @@ namespace GradeRegZTP.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(grade).State = EntityState.Modified;
-                db.SaveChanges();
+                gradeService.UpdateGrade(grade);
                 return RedirectToAction("Index");
             }
             ViewBag.SubjectId = new SelectList(db.Subjects, "Id", "Name", grade.SubjectId);
@@ -140,7 +147,7 @@ namespace GradeRegZTP.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Grade grade = db.Grades.Find(id);
+            Grade grade = gradeService.Find(id);
             if (grade == null)
             {
                 return HttpNotFound();
@@ -153,9 +160,7 @@ namespace GradeRegZTP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Grade grade = db.Grades.Find(id);
-            db.Grades.Remove(grade);
-            db.SaveChanges();
+            gradeService.DeleteGrade(id);
             return RedirectToAction("Index");
         }
 

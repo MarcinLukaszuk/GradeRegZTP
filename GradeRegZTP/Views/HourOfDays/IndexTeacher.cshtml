@@ -1,13 +1,6 @@
 ﻿@model IEnumerable<GradeRegZTP.Models.HourOfDay>
-
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+ 
+ 
 <style>
     .info {
         border: 1px #5b5757 solid;
@@ -57,6 +50,5 @@
             }
         </tr>
     }
-
-
 </table>
+@Html.ActionLink("Pobierz PDF", "PDFGenerator", "HourOfDays", new { @class = "btn btn-danger" })

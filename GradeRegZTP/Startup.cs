@@ -1,8 +1,11 @@
-﻿using GradeRegZTP.Models;
+﻿using Autofac;
+using Autofac.Integration.Mvc;
+using GradeRegZTP.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
+using System.Reflection;
 
 [assembly: OwinStartupAttribute(typeof(GradeRegZTP.Startup))]
 namespace GradeRegZTP
