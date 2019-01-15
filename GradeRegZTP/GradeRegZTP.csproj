@@ -202,6 +202,7 @@
     <Compile Include="Builder\ITimetableBuilder.cs" />
     <Compile Include="Builder\PDFTimetableBuilder.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Utils\Helper.cs" />
     <Compile Include="Proxy\GradeProxy.cs" />
     <Compile Include="Controllers\GradesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

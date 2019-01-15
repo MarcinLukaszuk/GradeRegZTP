@@ -17,7 +17,7 @@ namespace GradeRegZTP.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private ApplicationDbContext _context;
+        protected ApplicationDbContext _context;
         public AccountController()
         {
             _context = new ApplicationDbContext();
@@ -170,8 +170,7 @@ namespace GradeRegZTP.Controllers
                         Name = model.Name,
                         Surname = model.Surname,
                         Owner = user.Id
-                    }
-                    ;
+                    };
                     if (model.UserRoles == "Student")
                         myUser.StudentsGroupId = model.ClassOfStudent;
 

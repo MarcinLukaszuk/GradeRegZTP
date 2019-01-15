@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj nowy", "Create")
 </p>
 <div class="form-horizontal">
 
@@ -19,12 +19,12 @@
             </th>
             <th></th>
         </tr>
-        <div class="form-group">
+        @*<div class="form-group">
             <div class="  col-md-1">
                 @Html.ActionLink("Dodaj Grupy Zajęciowe", "Create", "SubjectStudentGroupTeachers", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })
 
             </div>
-        </div>
+        </div>*@
         @foreach (var item in Model)
         {
             <tr>

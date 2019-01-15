@@ -63,7 +63,7 @@ namespace GradeRegZTP.Services
 
         public IEnumerator GetEnumerator()
         {
-            foreach (Grade grade in grades)
+            foreach (Grade grade in context.Grades)
             {
                 yield return grade;
             }
@@ -71,7 +71,7 @@ namespace GradeRegZTP.Services
 
         public IEnumerator GradesForSubject(string subject)
         {
-            foreach (Grade grade in grades)
+            foreach (Grade grade in context.Grades)
             {
                 if(subject.Equals(grade.Subject.Name))
                 {
@@ -82,7 +82,7 @@ namespace GradeRegZTP.Services
 
         public IEnumerator GradesForDate(DateTime date)
         {
-            foreach (Grade grade in grades)
+            foreach (Grade grade in context.Grades)
             {
                 if (date == grade.Date)
                 {
@@ -93,7 +93,7 @@ namespace GradeRegZTP.Services
 
         public IEnumerator GradesForStudent(string id)
         {
-            foreach (Grade grade in grades)
+            foreach (Grade grade in context.Grades)
             {
                 if (id.Equals(grade.Owner))
                 {

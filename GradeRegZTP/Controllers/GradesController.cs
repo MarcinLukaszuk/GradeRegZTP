@@ -51,14 +51,14 @@ namespace GradeRegZTP.Controllers
             else if (User.IsInRole("Student"))
             {
                 var myStudentGrupuID = db.MyUsers.Where(x => x.Owner == userID).Select(x => x.StudentsGroupId).FirstOrDefault();
-                var grades = gradeService.GradesForStudent(userID);
 
+                var grades = Helper.ToIEnumerable<Grade>(gradeService.GradesForStudent(userID));
                 var subjects = db.SubjectStudentGroupTeacher.Where(x => x.StudentsGroupId == myStudentGrupuID).Select(x => x.Subject).ToList();
 
 
                 StudentGradesViewModel studentViewModel = new StudentGradesViewModel()
                 {
-                    Grades = (IEnumerable<Grade>)grades,
+                    Grades = grades,
                     Subjects = subjects
                 };
 
@@ -173,4 +173,6 @@ namespace GradeRegZTP.Controllers
             base.Dispose(disposing);
         }
     }
+
+
 }

@@ -19,7 +19,17 @@ namespace GradeRegZTP.Controllers
         // GET: SubjectStudentGroupTeachers
         public ActionResult Index()
         {
-            var subjectStudentGroupTeacher = db.SubjectStudentGroupTeacher.Include(s => s.StudentsGroup).Include(s => s.Subject);
+            var subjectStudentGroupTeacher = db.SubjectStudentGroupTeacher.Include(s => s.StudentsGroup).Include(s => s.Subject).ToList();
+
+            foreach (var item in subjectStudentGroupTeacher)
+            {
+                var user = db.MyUsers.Where(x => x.Owner.Equals(item.TeacherID)).FirstOrDefault();
+                if (user != null)
+                {
+                    item.TeacherID = user.Name + " " + user.Surname;
+                }
+            }
+
             return View(subjectStudentGroupTeacher.ToList());
         }
 
@@ -40,7 +50,7 @@ namespace GradeRegZTP.Controllers
 
         // GET: SubjectStudentGroupTeachers/Create
         public ActionResult Create()
-        { 
+        {
             ViewBag.StudentsGroupId = new SelectList(db.StudentsGroups.Select(x => new { Id = x.Id, Name = x.Level + x.Name }), "Id", "Name");
             ViewBag.SubjectId = new SelectList(db.Subjects, "Id", "Name");
             ViewBag.TeacherId = new SelectList(db.MyUsers
@@ -48,12 +58,12 @@ namespace GradeRegZTP.Controllers
                 myUsers => myUsers.Owner,
                 systemUsers => systemUsers.Id,
                 (myUsers, systemUsers) => new { myUsers, systemUsers })
-               .Where(x=>x.systemUsers.Roles  .Any(r => r.RoleId == "ffb7427a-13cc-447d-868f-235d99f92d46"))
+               .Where(x => x.systemUsers.Roles.Any(r => r.RoleId == "ffb7427a-13cc-447d-868f-235d99f92d46"))
 
                  .Select(x => new
-            {
-                Id = x.myUsers .Id,
-                Name = x.myUsers.Name + " " + x.myUsers.Surname
+                 {
+                     Id = x.myUsers.Id,
+                     Name = x.myUsers.Name + " " + x.myUsers.Surname
                  }), "Id", "Name");
 
 

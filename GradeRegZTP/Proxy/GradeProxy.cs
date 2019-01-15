@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using GradeRegZTP.Models;
 using GradeRegZTP.Services;
@@ -37,10 +39,35 @@ namespace GradeRegZTP.Controllers
             return gradeService.GetAllGrades();
         }
 
+        public IEnumerator<Grade> GetEnumerator()
+        {
+            return (IEnumerator<Grade>)gradeService.GetEnumerator();
+        }
+
+        public IEnumerator GradesForDate(DateTime date)
+        {
+            return gradeService.GradesForDate(date);
+        }
+
+        public IEnumerator GradesForStudent(string id)
+        {
+            return gradeService.GradesForStudent(id);
+        }
+
+        public IEnumerator GradesForSubject(string subject)
+        {
+            return gradeService.GradesForStudent(subject);
+        }
+
         public void UpdateGrade(Grade grade)
         {
             Debug.WriteLine("Aktualizacja oceny");
             gradeService.UpdateGrade(grade);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return gradeService.GetEnumerator();
         }
     }
 }

@@ -22,12 +22,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Grades", "Index", "Grades")</li>
-                    <li>@Html.ActionLink("Timetable", "Index", "HourOfDays")</li>
-                    <li>@Html.ActionLink("Messages", "Index", "Messages")</li>
+                    <li>@Html.ActionLink("Oceny", "Index", "Grades")</li>
+                    <li>@Html.ActionLink("Rozkład zajęć", "Index", "HourOfDays")</li>
+                    <li>@Html.ActionLink("Wiadomości", "Index", "Messages")</li>
+
 
                     @if (User.IsInRole("Admin"))
                     {
+                        <li>@Html.ActionLink("Grupy Zajęciowe", "Index", "SubjectStudentGroupTeachers")</li>
                         <li>@Html.ActionLink("Przedmioty", "Index", "Subjects")</li>
 
                         <li>@Html.ActionLink("Dodaj Użytkownika", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
