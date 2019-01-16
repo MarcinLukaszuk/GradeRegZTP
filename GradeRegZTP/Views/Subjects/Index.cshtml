@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Przedmioty</h2>
 
 <p>
     @Html.ActionLink("Dodaj nowy", "Create")
@@ -19,12 +19,6 @@
             </th>
             <th></th>
         </tr>
-        @*<div class="form-group">
-            <div class="  col-md-1">
-                @Html.ActionLink("Dodaj Grupy Zajęciowe", "Create", "SubjectStudentGroupTeachers", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })
-
-            </div>
-        </div>*@
         @foreach (var item in Model)
         {
             <tr>
@@ -32,9 +26,9 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Szczegóły", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
                 </td>
             </tr>
         }

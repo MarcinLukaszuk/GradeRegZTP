@@ -7,7 +7,7 @@
 <h2>Wiadomości</h2>
 
 <p>
-    @Html.ActionLink("Dodaj nowy", "Create")
+    @Html.ActionLink("Wyślij wiadomość", "Create")
 </p>
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#outbox">Skrzynka nadawcza</a></li>
@@ -51,7 +51,7 @@
                             @Html.DisplayFor(modelItem => item.RecieverID)
                         </td>
                         <td>
-                            @Html.ActionLink("Details", "Details", new { id = item.Id })
+                            @Html.ActionLink("Szczegóły", "Details", new { id = item.Id })
                         </td>
                     </tr>
                 }
@@ -94,7 +94,7 @@
                             @Html.DisplayFor(modelItem => item.SenderID)
                         </td>
                         <td>
-                            @Html.ActionLink("Details", "Details", new { id = item.Id })
+                            @Html.ActionLink("Szczegóły", "Details", new { id = item.Id })
                         </td>
                     </tr>
                 }

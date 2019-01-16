@@ -69,7 +69,7 @@ namespace GradeRegZTP.Controllers
         {
             ViewBag.DayOfWeekId = new SelectList(db.DayOfWeek, "Id", "Name");
             ViewBag.HourId = new SelectList(db.Hours, "Id", "HourString");
-            ViewBag.StudentsGroupId = new SelectList(db.StudentsGroups, "Id", "Name");
+            ViewBag.StudentsGroupId = new SelectList(db.StudentsGroups.Select(x => new { Id = x.Id, Name = x.Level + x.Name }), "Id", "Name");
             ViewBag.SubjectId = new SelectList(db.Subjects, "Id", "Name");
             return View();
         }
