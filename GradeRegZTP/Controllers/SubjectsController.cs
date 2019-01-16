@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using GradeRegZTP.Core;
 using GradeRegZTP.Models;
 
 namespace GradeRegZTP.Controllers
@@ -13,7 +14,11 @@ namespace GradeRegZTP.Controllers
     public class SubjectsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        private GradeReg gradeReg;
+        public SubjectsController(GradeReg _gradeReg)
+        {
+            gradeReg = _gradeReg;
+        }
         // GET: Subjects
         public ActionResult Index()
         {
@@ -50,8 +55,7 @@ namespace GradeRegZTP.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Subjects.Add(subject);
-                db.SaveChanges();
+                gradeReg.AddSubject(subject);
                 return RedirectToAction("Index");
             }
 
@@ -109,9 +113,7 @@ namespace GradeRegZTP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Subject subject = db.Subjects.Find(id);
-            db.Subjects.Remove(subject);
-            db.SaveChanges();
+            gradeReg.DeleteSubject(id);
             return RedirectToAction("Index");
         }
 

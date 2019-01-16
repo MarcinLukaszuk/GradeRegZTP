@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using GradeRegZTP.Controllers;
+using GradeRegZTP.Core;
 using GradeRegZTP.Models;
 using GradeRegZTP.Services;
 using System;
@@ -38,9 +39,15 @@ namespace GradeRegZTP
             builder.RegisterModule<AutofacWebTypesModule>();
             builder.RegisterSource(new ViewRegistrationSource());
             builder.RegisterFilterProvider();
+            builder.RegisterType<ApplicationDbContext>().As<IDbContext>();
+            builder.RegisterType<GradeService>().As<IGradeService>();
 
-           builder.RegisterType<ApplicationDbContext>().As<IDbContext>();
-           builder.RegisterType<GradeService>().As<IGradeService>();
+            GradeReg gradeReg = GradeReg.GetInstance();
+            builder.RegisterInstance(gradeReg).As<GradeReg>();
+
+            //builder.RegisterInstance<GradeReg.GetInstance()>();
+
+
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
